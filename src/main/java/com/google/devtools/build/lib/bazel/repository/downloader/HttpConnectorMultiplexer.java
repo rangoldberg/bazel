@@ -66,7 +66,9 @@ final class HttpConnectorMultiplexer {
           "Accept-Encoding",
           "gzip",
           "User-Agent",
-          "Bazel/" + BlazeVersionInfo.instance().getReleaseName());
+          "Bazel/" + BlazeVersionInfo.instance().getReleaseName(),
+          "Authorization",
+          "token 94312dc588e3d0e2068238defd395b04d56b2317");
 
   private final EventHandler eventHandler;
   private final HttpConnector connector;
@@ -146,7 +148,7 @@ final class HttpConnectorMultiplexer {
       boolean interrupted = false;
       while (context.result == null && !context.threads.isEmpty()) {
         try {
-          // Please note that waiting on a conndition releases the mutex. It also throws
+          // Please note that waiting on a condition releases the mutex. It also throws
           // InterruptedException if the thread is *already* interrupted.
           context.wait();
         } catch (InterruptedException e) {

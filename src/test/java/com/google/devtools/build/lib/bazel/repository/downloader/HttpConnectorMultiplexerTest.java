@@ -151,6 +151,15 @@ public class HttpConnectorMultiplexerTest {
   }
 
   @Test
+  public void singleUrl_onNetrcMatchUseAuthenticationHeader() throws Exception {
+    assertThat(toByteArray(multiplexer.connect(asList(URL1), "abc"))).isEqualTo(data1);
+    verify(connector).connect(eq(URL1), any(ImmutableMap.class));
+    verify(streamFactory)
+            .create(any(URLConnection.class), any(URL.class), eq("abc"), any(Reconnector.class));
+    verifyNoMoreInteractions(sleeper, connector, streamFactory);
+  }
+
+  @Test
   public void multipleUrlsFail_throwsIOException() throws Exception {
     when(connector.connect(any(URL.class), any(ImmutableMap.class))).thenThrow(new IOException());
     try {
