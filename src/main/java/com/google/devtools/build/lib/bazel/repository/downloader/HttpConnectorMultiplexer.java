@@ -66,9 +66,7 @@ final class HttpConnectorMultiplexer {
           "Accept-Encoding",
           "gzip",
           "User-Agent",
-          "Bazel/" + BlazeVersionInfo.instance().getReleaseName(),
-          "Authorization",
-          "token access_token");
+          "Bazel/" + BlazeVersionInfo.instance().getReleaseName());
 
   private final EventHandler eventHandler;
   private final HttpConnector connector;
